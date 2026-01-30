@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My Projects</h1>
+    <p>Here are some of the projects I've worked on:</p>
+    <div class="max-w-6xl mx-auto px-6 py-10">
+        <h1 class="text-3xl font-bold mb-6">My Projects</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for project in projects %}
+            <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
+                <h2 class="text-xl font-semibold mb-2">
+                    {{ project.name }}
+                </h2>
+
+                <p class="text-gray-600 mb-4">
+                    {{ project.description }}
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                    {% for tech in project.tech_stack %}
+                    <span class="px-3 py-1 text-sm bg-gray-200 rounded-full">
+                        {{ tech }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
