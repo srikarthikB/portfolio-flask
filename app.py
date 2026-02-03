@@ -1,6 +1,10 @@
-from flask import Flask, render_template
+import os
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_PATH = os.path.join(BASE_DIR, "message.txt")
 
 @app.route('/')
 def home():
@@ -10,8 +14,21 @@ def home():
 def about():
     return render_template('about.html', bio = "this is a short bio", skills=["Python", "JavaScript", "Flask"])
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+
+        with open(FILE_PATH, 'a') as f:
+            f.write(f"Name: {name}\n")
+            f.write(f"Email: {email}\n")
+            f.write(f"Message: {message}\n")
+            f.write("-" * 40 + "\n")
+
+        return "Thank you for your message!"
+
     return render_template('contact.html')
 
 @app.route('/projects')
