@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect
 
 app = Flask(__name__)
+app.secret_key = "supersecretkey"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "message.txt")
@@ -27,7 +28,8 @@ def contact():
             f.write(f"Message: {message}\n")
             f.write("-" * 40 + "\n")
 
-        return "Thank you for your message!"
+        flash("Message sent successfully!")
+        return redirect('/contact')
 
     return render_template('contact.html')
 
