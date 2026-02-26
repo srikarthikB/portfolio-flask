@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex flex-col items-center justify-center h-screen bg-gray-100">
+<div class="flex flex-col items-center justify-center min-h-screen py-20 bg-gray-100">
     <h1 class="text-3xl font-bold">
         Welcome to My Portfolio, I'm {{ name }}
     </h1>
     <p class="text-gray-600 mt-2">{{ role }}</p>
     <p>This is the home page where you can find an overview of my work and skills.</p>
+    <div class="mt-16 text-center">
+    <h2 class="text-2xl font-bold mb-6">Skills</h2>
+
+    <div class="flex justify-center gap-8 text-5xl text-gray-700">
+        <i class="devicon-python-plain hover:text-blue-500 transition"></i>
+        <i class="devicon-flask-original hover:text-red-500 transition"></i>
+        <i class="devicon-html5-plain hover:text-orange-500 transition"></i>
+        <i class="devicon-javascript-plain hover:text-yellow-500 transition"></i>
+        <i class="devicon-tailwindcss-plain hover:text-teal-500 transition"></i>
+    </div>
 </div>
+</div>
+
 {% endblock %}

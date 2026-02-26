@@ -36,8 +36,18 @@ def contact():
 @app.route('/projects')
 def projects():
     return render_template('projects.html', projects=[
-        {"name": "Portfolio Website", "description": "this is a basic portfolio website", "tech_stack": ["HTML", "TailwindCSS", "JavaScript", "Flask"]},
-        {"name": "Interactive digital library", "description": "this is a digital library website", "tech_stack": ["Python", "Flask", "JavaScript"]},
+        {"name": "Portfolio Website",
+         "description": "this is a basic portfolio website",
+         "tech_stack": ["HTML", "TailwindCSS", "JavaScript", "Flask","Python"],
+         "logo":"images/projects/portfolio_favicon.png",
+         "github":"https://github.com/sri16/portfolio",
+         "live":"https://sri16-portfolio.onrender.com/"},
+        {"name": "Interactive digital library",
+         "description": "this is a digital library website",
+         "tech_stack": ["Python", "Flask", "JavaScript", "TailwindCSS"],
+         "logo":"images/projects/idl_favicon.png",
+         "github":"https://github.com/sri16/interactive-digital-library",
+         "live":"https://interactive-digital-library.onrender.com/"},
     ])
 
 if __name__ == "__main__":
