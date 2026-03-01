@@ -10,9 +10,9 @@ app.secret_key = "supersecretkey"
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_USERNAME'] = "sri2006karthik@gmail.com"
+app.config['MAIL_PASSWORD'] = "zzvw joxm crdn vowh"
+app.config['MAIL_DEFAULT_SENDER'] = "sri2006karthik@gmail.com"
 
 mail = Mail(app)
 
@@ -36,9 +36,10 @@ def contact():
 
         msg = Message(
             subject=f"Portfolio Contact from {name}",
-            recipients=[os.environ.get('MAIL_USERNAME')]
+            sender="sri2006karthik@gmail.com",
+            recipients=["sri2006karthik@gmail.com"]
         )
-
+        
         msg.body = f""" Name: {name}
                         Email: {email}
                         Message:{message}"""
@@ -47,6 +48,7 @@ def contact():
 
         flash("Message sent successfully!")
         return redirect('/contact')
+    return render_template('contact.html')
 
 @app.route('/projects')
 def projects():
@@ -66,4 +68,6 @@ def projects():
     ])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
