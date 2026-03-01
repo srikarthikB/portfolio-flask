@@ -7,8 +7,81 @@
     <title>My Portfolio</title>
     <link rel="icon" type="image/x-icon"
       href="{{ url_for('static', filename='images/projects/portfolio_favicon.png') }}">
+    <style>
+        #page-wrapper {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            filter: blur(10px);
+            animation: smoothEntrance 0.9s cubic-bezier(.22,1,.36,1) forwards;
+        }
+
+        @keyframes smoothEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        body {
+            background: linear-gradient(-45deg, #0f172a, #111827, #0a0f1f, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-hero1 {
+            animation: heroReveal 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .animate-hero2 {
+            animation: heroReveal 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .animate-hero3 {
+            animation: heroReveal 0.8s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes heroReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <meta name="description" content="Sri Karthik - Backend Developer Portfolio. Flask, Python, and modern web technologies.">
+    <meta name="keywords" content="Sri Karthik, Backend Developer, Flask, Python, Portfolio">
+    <meta name="author" content="Sri Karthik">
+
+    <meta property="og:title" content="Sri Karthik Portfolio">
+    <meta property="og:description" content="Backend Developer building scalable web applications.">
+    <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('opacity-0', 'translate-y-6');
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+            }
+        });
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
+
+    document.documentElement.style.scrollBehavior = "smooth";
+</script>
+
 <body>
     <nav class="flex justify-between items-center px-6 py-4 bg-gray-900 text-white">
         <h1 class="text-xl font-bold">Karthik</h1>
@@ -24,8 +97,15 @@
 
     <hr>
 
-    {% block content %}
-    {% endblock %}
+    <!-- Noise Texture Layer -->
+    <div class="fixed inset-0 pointer-events-none opacity-3 mix-blend-overlay"
+         style="background-image: url('https://www.transparenttextures.com/patterns/noise.png');">
+    </div>
+
+    <!-- Page Content Wrapper -->
+    <div id="page-wrapper" class="relative z-10">
+        {% block content %}{% endblock %}
+    </div>
 
 </body>
 </html>

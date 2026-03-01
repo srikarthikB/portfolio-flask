@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>About Me</h1>
-    <p>Hello! I'm Karthik, a passionate web developer with expertise in building responsive and user-friendly websites. I enjoy solving problems and creating efficient, scalable applications.</p>
+<div class="min-h-screen bg-gray-100 py-20 px-6">
+
+    <div class="max-w-4xl mx-auto text-center">
+
+        <h1 class="text-4xl font-bold mb-6">About Me</h1>
+
+        <p class="text-gray-700 text-lg mb-8">
+            Hello! I'm Karthik, a passionate backend-focused developer who enjoys building scalable web applications and solving real-world problems.
+        </p>
+
+        <div class="mt-10">
+            <a href="{{ url_for('static', filename='Sri_Karthik_Resume.pdf') }}"
+               download
+               class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg hover:scale-105">
+                Download Resume
+            </a>
+        </div>
+
+    </div>
+
+</div>
 {% endblock %}
