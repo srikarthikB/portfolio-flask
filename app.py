@@ -1,6 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request, flash
+from flask_mail import Mail, Message
+import traceback
 
 app = Flask(__name__)
+
+# Secret key (required for flash messages)
+app.secret_key = "supersecretkey"
+
+# ================= MAIL CONFIGURATION =================
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+# IMPORTANT: Remove spaces from app password
+app.config['MAIL_USERNAME'] = "sri2006karthik@gmail.com"
+app.config['MAIL_PASSWORD'] = "zzvwjoxmcrdnvowh"  # NO SPACES
+app.config['MAIL_DEFAULT_SENDER'] = "sri2006karthik@gmail.com"
+
+mail = Mail(app)
+# ======================================================
+
 
 @app.route('/')
 def home():
@@ -10,6 +30,7 @@ def home():
         role="Full Stack Developer"
     )
 
+
 @app.route('/about')
 def about():
     return render_template(
@@ -18,13 +39,45 @@ def about():
         skills=["Python", "JavaScript", "Flask"]
     )
 
-@app.route('/contact')
+
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        try:
+            name = request.form['name']
+            email = request.form['email']
+            message = request.form['message']
+
+            msg = Message(
+                subject=f"Portfolio Contact from {name}",
+                sender=app.config['MAIL_USERNAME'],   # Explicit sender
+                recipients=[app.config['MAIL_USERNAME']]
+            )
+
+            msg.body = f"""
+Name: {name}
+Email: {email}
+
+Message:
+{message}
+"""
+
+            mail.send(msg)
+
+            flash("Message sent successfully!")
+            return redirect('/contact')
+
+        except Exception:
+            print("EMAIL ERROR:")
+            traceback.print_exc()
+            return "Email failed. Check terminal."
+
     return render_template('contact.html')
+
 
 @app.route('/projects')
 def projects():
-    return render_template('projects.html', projects = [
+    return render_template('projects.html', projects=[
         {
             "name": "Portfolio Website",
             "description": "A personal portfolio website built using Flask to showcase projects and skills.",
@@ -36,7 +89,7 @@ def projects():
                 "Template rendering with Jinja2",
                 "Structured multi-page architecture",
                 "Static asset management",
-                "Deployed using Vercel"
+                "Deployed using Railway"
             ]
         },
         {
@@ -54,6 +107,7 @@ def projects():
             ]
         }
     ])
+
 
 if __name__ == "__main__":
     app.run(debug=True)
