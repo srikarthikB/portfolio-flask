@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, flash
 from flask_mail import Mail, Message
-import traceback
+import traceback, os
 
 app = Flask(__name__)
 
@@ -14,9 +14,9 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
 # IMPORTANT: Remove spaces from app password
-app.config['MAIL_USERNAME'] = "sri2006karthik@gmail.com"
-app.config['MAIL_PASSWORD'] = "zzvwjoxmcrdnvowh"  # NO SPACES
-app.config['MAIL_DEFAULT_SENDER'] = "sri2006karthik@gmail.com"
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # NO SPACES
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 
 mail = Mail(app)
 # ======================================================
