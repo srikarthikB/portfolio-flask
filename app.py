@@ -24,7 +24,7 @@ def projects():
             "name": "Interactive Digital Library",
             "description": "A web-based digital library allowing users to browse and explore books interactively.",
             "ss": "images/projects/digilib-ss.png",
-            "github": "https://github.com/sri16/interactive-digital-library",
+            "github": "https://github.com/srikarthikB/interactive-digital-library",
             "live": "https://interactive-digital-library-production.up.railway.app/",
             "highlights": [
                 "Backend logic implemented using Flask",
