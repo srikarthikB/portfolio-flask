@@ -21,6 +21,20 @@ def about():
 def projects():
     projects_data = [
         {
+            "name": "Interactive Digital Library",
+            "description": "A web-based digital library allowing users to browse and explore books interactively.",
+            "ss": "images/projects/digilib-ss.png",
+            "github": "https://github.com/sri16/interactive-digital-library",
+            "live": "https://interactive-digital-library-production.up.railway.app/",
+            "highlights": [
+                "Backend logic implemented using Flask",
+                "Dynamic content rendering with Jinja2",
+                "Modular project structure",
+                "Local data handling",
+                "Deployed using Render"
+            ]
+        },
+        {
             "name": "Portfolio Website",
             "description": "A personal portfolio website built using Flask to showcase projects and skills.",
             "ss": "images/projects/portfolio-ss.png",
@@ -32,20 +46,6 @@ def projects():
                 "Structured multi-page architecture",
                 "Static asset management",
                 "Deployed using Railway"
-            ]
-        },
-        {
-            "name": "Interactive Digital Library",
-            "description": "A web-based digital library allowing users to browse and explore books interactively.",
-            "ss": "images/projects/digilib-ss.png",
-            "github": "https://github.com/sri16/interactive-digital-library",
-            "live": "https://interactive-digital-library.onrender.com/",
-            "highlights": [
-                "Backend logic implemented using Flask",
-                "Dynamic content rendering with Jinja2",
-                "Modular project structure",
-                "Local data handling",
-                "Deployed using Render"
             ]
         }
     ]
