@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sri Karthik Portfolio</title>
+
+    <!-- Devicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon"
+          href="{{ url_for('static', filename='images/projects/portfolio_favicon.png') }}">
+
+    <!-- SEO -->
+    <meta name="description" content="Sri Karthik - Backend Developer Portfolio. Flask, Python, and modern web technologies.">
+    <meta name="keywords" content="Sri Karthik, Backend Developer, Flask, Python, Portfolio">
+    <meta name="author" content="Sri Karthik">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sri Karthik Portfolio">
+    <meta property="og:description" content="Backend Developer building scalable web applications.">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Page Entrance Animation */
+        #page-wrapper {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            filter: blur(10px);
+            animation: smoothEntrance 0.9s cubic-bezier(.22,1,.36,1) forwards;
+        }
+
+        @keyframes smoothEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Background Gradient Animation */
+        body {
+            background: linear-gradient(-45deg, #022c22, #065F46, #014737, #022c22);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Smooth transitions on input focus */
+        input:focus,
+        textarea:focus {
+            box-shadow: 0 0 0 3px rgba(6, 95, 70, 0.1);
+        }
+
+        /* Soft card transition on scroll */
+        section {
+            transition: background-color 200ms ease;
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.55s cubic-bezier(.22,1,.36,1),
+                        transform 0.55s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.08s; }
+        .reveal-delay-2 { transition-delay: 0.16s; }
+        .reveal-delay-3 { transition-delay: 0.24s; }
+        .reveal-delay-4 { transition-delay: 0.32s; }
+
+        /* ── SKILL ICONS — showcase style ── */
+        .skill-icon-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+            min-width: 90px;
+        }
+        .skill-icon-wrap i {
+            font-size: 4rem;
+            color: #9ca3af; /* neutral gray */
+            transition: transform 0.22s cubic-bezier(.34,1.56,.64,1),
+                        filter 0.18s ease,
+                        color 0.18s ease;
+        }
+        .skill-icon-wrap:hover i {
+            transform: scale(1.12) translateY(-3px);
+
+            filter:
+                drop-shadow(0 0 3px currentColor)
+                drop-shadow(0 0 6px currentColor);
+
+            opacity: 1;
+        }
+
+        /* ── SKILL ICON HOVER COLORS ── */
+        .devicon-python-plain:hover {
+            color: #3776AB;
+        }
+        .devicon-html5-plain:hover {
+            color: #E34F26;
+        }
+        .devicon-javascript-plain:hover {
+            color: #F7DF1E;
+        }
+        .devicon-tailwindcss-plain:hover {
+            color: #06B6D4;
+        }
+        .devicon-fastapi-plain:hover {
+            color: #009688;
+        }
+        .devicon-flask-original:hover {
+            color: #E5E7EB;
+        }
+        .devicon-c-plain:hover {
+            color: #A8B9CC;
+        }
+        .devicon-css3-plain:hover {
+            color: #1572B6;
+        }
+        .devicon-mysql-plain:hover {
+            color: #F29111;
+        }
+        .devicon-sqlite-plain:hover {
+            color: #003B57;
+        }
+        .devicon-git-plain:hover {
+            color: #F05032;
+        }
+        .devicon-github-original:hover {
+            color: #E5E7EB;
+        }
+        .devicon-vscode-plain:hover {
+            color: #007ACC;
+        }
+
+        .skill-icon-wrap span {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #6b7280;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: color 0.18s ease, opacity 0.18s ease;
+        }
+        .skill-icon-wrap:hover span {
+            color: #d1fae5;
+            opacity: 1;
+        }
+
+        /* pop-in on scroll */
+        .skill-icon-wrap.reveal {
+            transform: scale(0.7) translateY(20px);
+        }
+        .skill-icon-wrap.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* About Skills section — dark bg so icons pop */
+        #about .skills-showcase {
+            background: #022c22;
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(6,95,70,0.4);
+        }
+
+        /* Hero skills row — slightly bigger */
+        #home .skill-icon-wrap i { font-size: 2.8rem; }
+
+        /* ── SECTION DIVIDERS — subtle tint variation ── */
+        .section-tint-a { background: #F9FAFB; }
+        .section-tint-b { background: #ffffff; }
+        .section-tint-dark { background: #F0FDF4; } /* very faint green tint */
+
+        /* ── EDUCATION — timeline style ── */
+        .edu-item {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .edu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #065F46;
+            box-shadow: 0 0 0 3px rgba(6,95,70,0.15);
+        }
+        .edu-item::after {
+            content: '';
+            position: absolute;
+            left: 3.5px;
+            top: 1.4rem;
+            width: 1px;
+            height: calc(100% + 1.5rem);
+            background: rgba(6,95,70,0.2);
+        }
+        .edu-item:last-child::after { display: none; }
+
+        /* ── CURRENTLY EXPLORING — pill tags ── */
+        .explore-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.2rem;
+            border-radius: 9999px;
+            background: rgba(6,95,70,0.08);
+            border: 1px solid rgba(6,95,70,0.2);
+            color: #065F46;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.15s, transform 0.15s, border-color 0.15s;
+            cursor: default;
+        }
+        .explore-pill:hover {
+            background: #065F46;
+            color: #fff;
+            border-color: #065F46;
+            transform: translateY(-2px) scale(1.03);
+        }
+        .explore-pill::before {
+            content: '↗';
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        /* ── PROJECT CARD — highlight strip ── */
+        .project-card {
+            border-left: 3px solid transparent;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .project-card:hover {
+            border-left-color: #065F46;
+            box-shadow: 0 4px 24px rgba(6,95,70,0.08);
+        }
+
+        /* ── TECH TAG chips ── */
+        .tech-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            background: #F0FDF4;
+            border: 1px solid #D1FAE5;
+            color: #065F46;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── STATS — colored accent numbers ── */
+        .stat-num {
+            background: linear-gradient(135deg, #065F46, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── CONTACT — dark card on left ── */
+        .contact-dark-side {
+            background: #022c22;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(6,95,70,0.3);
+            color: white;
+        }
+        .contact-dark-side h3 { color: #d1fae5; }
+        .contact-dark-side p { color: #a7f3d0; }
+
+        /* Highlight text — key phrase in about intro */
+        .text-highlight {
+            color: #065F46;
+            font-weight: 700;
+        }
+
+        /* Project buttons — more prominent */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.65rem 1.4rem;
+            background: #065F46;
+            color: white;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.15s, transform 0.15s;
+        }
+        .btn-primary:hover { background: #047857; transform: scale(1.03); }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.65rem 1.4rem;
+            border: 2px solid #065F46;
+            color: #065F46;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.15s, color 0.15s, transform 0.15s;
+        }
+        .btn-outline:hover { background: #065F46; color: white; transform: scale(1.03); }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar"
+         class="flex justify-between items-center px-6 py-4 
+                fixed top-0 w-full 
+                backdrop-blur-md bg-[#065F46]/50 
+                text-white z-50 transition-shadow duration-150">
+
+        <!-- Logo -->
+        <a href="#home"
+           class="text-xl font-bold tracking-wide hover:text-emerald-400 transition">
+            Sri Karthik B
+        </a>
+
+        <!-- Nav Links -->
+        <ul class="flex space-x-6">
+
+            <li>
+                <a href="#home"
+                   class="relative group px-3 py-2 text-gray-300 hover:text-white transition">
+                    Home
+                    <span class="absolute left-0 -bottom-1 h-0.5 w-0 bg-emerald-500
+                                 transition-[width] duration-150 ease-out group-hover:w-full">
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#about"
+                   class="relative group px-3 py-2 text-gray-300 hover:text-white transition">
+                    About
+                    <span class="absolute left-0 -bottom-1 h-0.5 w-0 bg-emerald-500
+                                 transition-[width] duration-150 ease-out group-hover:w-full">
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#projects"
+                   class="relative group px-3 py-2 text-gray-300 hover:text-white transition">
+                    Projects
+                    <span class="absolute left-0 -bottom-1 h-0.5 w-0 bg-emerald-500
+                                 transition-[width] duration-150 ease-out group-hover:w-full">
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#contact"
+                   class="relative group px-3 py-2 text-gray-300 hover:text-white transition">
+                    Contact
+                    <span class="absolute left-0 -bottom-1 h-0.5 w-0 bg-emerald-500
+                                 transition-[width] duration-150 ease-out group-hover:w-full">
+                    </span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+    <!-- Noise Texture -->
+    <div class="fixed inset-0 pointer-events-none opacity-3 mix-blend-overlay"
+         style="background-image: url('https://www.transparenttextures.com/patterns/noise.png');">
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-wrapper" class="relative z-10 pt-20">
+
+        <!-- ========== HOME ========== -->
+        <section id="home">
+
+            <!-- FULL HERO SECTION -->
+            <div class="min-h-screen bg-[#022c22] text-white flex flex-col justify-center items-center px-6">
+
+                <div class="text-center max-w-3xl">
+
+                    <!-- Hero Title -->
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+                        id="heroTitle">
+                        Hi, I'm <span class="text-emerald-400">Sri Karthik</span>
+                    </h1>
+
+                    <!-- Hero Description -->
+                    <p class="text-xl text-gray-300 mb-8 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+                       id="heroDesc">
+                        Backend-focused developer passionate about building scalable web applications and solving real-world problems.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="flex justify-center gap-4 mb-16 opacity-0 translate-y-6 transition-all duration-1000 ease-out"
+                         id="heroButtons">
+
+                        <a href="#projects"
+                           class="px-6 py-3 bg-[#065F46] rounded-lg hover:bg-[#047857] hover:scale-[1.02] active:scale-95 transition-[transform,background] duration-150 ease-out shadow-sm">
+                            Explore My Work
+                        </a>
+
+                        <a href="#contact"
+                           class="px-6 py-3 border border-gray-500 rounded-lg hover:bg-[#065F46] hover:border-emerald-600 hover:scale-[1.02] active:scale-95 transition-[transform,background,border-color] duration-150 ease-out">
+                            Contact Me
+                        </a>
+
+                    </div>
+
+                    <!-- Technical Skills -->
+                    <div>
+
+                        <h2 class="text-2xl font-semibold text-gray-300 mb-10">
+                            Technical Skills
+                        </h2>
+
+                        <div class="flex justify-center gap-10 flex-wrap max-w-3xl mx-auto">
+
+                            <div class="flex justify-center gap-12 flex-wrap">
+
+                            <div class="skill-icon-wrap reveal reveal-delay-1">
+                                <i class="devicon-python-plain"></i>
+                                <span>Python</span>
+                            </div>
+
+                            <div class="skill-icon-wrap reveal reveal-delay-2">
+                                <i class="devicon-flask-original"></i>
+                                <span>Flask</span>
+                            </div>
+
+                            <div class="skill-icon-wrap reveal reveal-delay-3">
+                                <i class="devicon-html5-plain"></i>
+                                <span>HTML5</span>
+                            </div>
+
+                            <div class="skill-icon-wrap reveal reveal-delay-4">
+                                <i class="devicon-javascript-plain"></i>
+                                <span>JavaScript</span>
+                            </div>
+
+                            <div class="skill-icon-wrap reveal" style="transition-delay:0.4s">
+                                <i class="devicon-tailwindcss-plain"></i>
+                                <span>Tailwind</span>
+                            </div>
+
+                            <div class="skill-icon-wrap reveal" style="transition-delay:0.4s">
+                                <i class="devicon-fastapi-plain"></i>
+                                <span>FastAPI</span>
+                            </div>
+
+                        </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- QUICK STATS -->
+            <div class="section-tint-dark py-20 px-6">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-12
+                                hover:shadow-md hover:scale-[1.01]
+                                transition-[transform,box-shadow] duration-150 ease-out reveal">
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+
+                            <div class="group reveal reveal-delay-1">
+                                <h3 class="text-3xl font-bold stat-num">
+                                    150+
+                                </h3>
+                                <p class="text-gray-500 mt-2 text-sm font-medium uppercase tracking-wide">
+                                    DSA Problems Solved
+                                </p>
+                            </div>
+
+                            <div class="group reveal reveal-delay-2">
+                                <h3 class="text-3xl font-bold stat-num">
+                                    3+
+                                </h3>
+                                <p class="text-gray-500 mt-2 text-sm font-medium uppercase tracking-wide">
+                                    Backend Projects
+                                </p>
+                            </div>
+
+                            <div class="group reveal reveal-delay-3">
+                                <h3 class="text-3xl font-bold stat-num">
+                                    2
+                                </h3>
+                                <p class="text-gray-500 mt-2 text-sm font-medium uppercase tracking-wide">
+                                    Live Deployed Apps
+                                </p>
+                            </div>
+
+                            <div class="group reveal reveal-delay-4">
+                                <h3 class="text-3xl font-bold stat-num">
+                                    Backend
+                                </h3>
+                                <p class="text-gray-500 mt-2 text-sm font-medium uppercase tracking-wide">
+                                    Focused Development
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CURRENTLY EXPLORING -->
+            <div class="bg-white py-24 px-6">
+
+                <div class="max-w-4xl mx-auto text-center">
+
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4 reveal">
+                        Currently Exploring
+                    </h2>
+                    <p class="text-gray-500 mb-10 reveal reveal-delay-1">Things I'm actively learning and building with</p>
+
+                    <div class="flex flex-wrap justify-center gap-4 reveal reveal-delay-2">
+                        <span class="explore-pill">Advanced Flask Architecture</span>
+                        <span class="explore-pill">REST API Design Principles</span>
+                        <span class="explore-pill">Database Optimization &amp; Scaling</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ========== END HOME ========== -->
+
+
+        <!-- ========== ABOUT ========== -->
+        <section id="about" class="bg-[#F9FAFB] py-28 px-6">
+
+            <div class="max-w-5xl mx-auto">
+
+                <!-- Header + Resume -->
+                <div class="flex justify-between items-center mb-16 flex-wrap gap-6">
+
+                    <div>
+                        <h1 class="text-5xl font-extrabold text-gray-900 mb-4">
+                            About Me
+                        </h1>
+                        <p class="text-gray-600 text-lg max-w-2xl">
+                            Backend-focused developer driven by structured thinking,
+                            problem-solving, and continuous improvement.
+                        </p>
+                    </div>
+
+                    <a href="{{ url_for('static', filename='Sri_Karthik_Resume.pdf') }}"
+                       download
+                       class="px-6 py-3 bg-[#065F46] text-white rounded-xl 
+                                hover:bg-[#047857] hover:scale-[1.02] active:scale-95
+                                transition-[transform,background] duration-150 ease-out
+                                shadow-sm whitespace-nowrap">
+                        Download Resume
+                    </a>
+
+                </div>
+
+                <!-- Intro Card -->
+                <div class="group relative z-10 bg-white p-10 rounded-3xl shadow-sm border border-gray-100
+                            hover:bg-[#065F46] hover:text-white
+                                    hover:scale-[1.02]
+                                    transition-[transform,background] duration-150 ease-out
+                            mb-16 reveal">
+
+                    <p class="text-gray-700 leading-relaxed text-lg group-hover:text-emerald-50">
+                        I am a <span class="text-highlight group-hover:text-emerald-300">Computer Science student</span> focused on backend development and
+                        data structures &amp; algorithms. I enjoy designing clean architecture,
+                        building structured applications, and understanding how systems work
+                        behind the scenes.
+                        <br><br>
+                        My goal is to become a strong <span class="text-highlight group-hover:text-emerald-300">backend engineer</span> by mastering
+                        core fundamentals rather than relying only on frameworks.
+                    </p>
+                </div>
+
+                <!-- Education -->
+                <div class="mb-16 reveal">
+
+                    <h2 class="text-3xl font-bold text-gray-900 mb-10">
+                        Education
+                    </h2>
+
+                    <div class="space-y-8 pl-4">
+
+                        <div class="edu-item reveal reveal-delay-1">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                B.Tech in Computer Science
+                            </h3>
+                            <p class="text-gray-600 mt-1">
+                                Vignan's Institute of Information Technology, Visakhapatnam
+                            </p>
+                            <p class="text-[#065F46] text-sm font-semibold mt-1">
+                                2024 – Present
+                            </p>
+                        </div>
+
+                        <div class="edu-item reveal reveal-delay-2">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                Intermediate (12th Grade)
+                            </h3>
+                            <p class="text-gray-600 mt-1">
+                                Narayana Junior College, Visakhapatnam
+                            </p>
+                        </div>
+
+                        <div class="edu-item reveal reveal-delay-3">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                High School (10th Grade)
+                            </h3>
+                            <p class="text-gray-600 mt-1">
+                                St. Ann's School, Visakhapatnam
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="mb-16 reveal">
+
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+                        Technical Skills
+                    </h2>
+
+                    <div class="skills-showcase max-w-3xl mx-auto space-y-10">
+
+                        <!-- Languages -->
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 text-center">Languages</h3>
+                            <div class="flex justify-center gap-10 flex-wrap">
+                                <div class="skill-icon-wrap reveal reveal-delay-1">
+                                    <i class="devicon-python-plain"></i>
+                                    <span>Python</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-2">
+                                    <i class="devicon-javascript-plain"></i>
+                                    <span>JavaScript</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-3">
+                                    <i class="devicon-c-plain"></i>
+                                    <span>C</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 text-center">Frontend</h3>
+                            <div class="flex justify-center gap-10 flex-wrap">
+                                <div class="skill-icon-wrap reveal reveal-delay-1">
+                                    <i class="devicon-html5-plain"></i>
+                                    <span>HTML5</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-2">
+                                    <i class="devicon-css3-plain"></i>
+                                    <span>CSS3</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-3">
+                                    <i class="devicon-tailwindcss-plain"></i>
+                                    <span>Tailwind</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backend -->
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 text-center">Backend</h3>
+                            <div class="flex justify-center gap-10 flex-wrap">
+                                <div class="skill-icon-wrap reveal reveal-delay-4">
+                                    <i class="devicon-fastapi-plain"></i>
+                                    <span>FastAPI</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-1">
+                                    <i class="devicon-flask-original"></i>
+                                    <span>Flask</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-2">
+                                    <i class="devicon-sqlite-plain"></i>
+                                    <span>SQLite</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-3">
+                                    <i class="devicon-mysql-plain"></i>
+                                    <span>MySQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tools -->
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 text-center">Tools</h3>
+                            <div class="flex justify-center gap-10 flex-wrap">
+                                <div class="skill-icon-wrap reveal reveal-delay-1">
+                                    <i class="devicon-git-plain"></i>
+                                    <span>Git</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-2">
+                                    <i class="devicon-github-original"></i>
+                                    <span>GitHub</span>
+                                </div>
+                                <div class="skill-icon-wrap reveal reveal-delay-3">
+                                    <i class="devicon-vscode-plain"></i>
+                                    <span>VS Code</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Backend & DSA Motivation -->
+                <div class="group relative z-10 bg-white p-10 rounded-3xl shadow-sm border border-gray-100
+                            hover:bg-[#065F46] hover:text-white
+                                    hover:scale-[1.02]
+                                    transition-[transform,background] duration-150 ease-out reveal">
+
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4 group-hover:text-white">
+                        Backend &amp; DSA Focus
+                    </h2>
+
+                    <p class="text-gray-700 leading-relaxed text-lg group-hover:text-emerald-50">
+                        Strong backend systems are built on <span class="font-semibold text-[#065F46] group-hover:text-emerald-300">clear logic, efficient data handling, and clean architecture</span> — not just frameworks.
+                        My focus is mastering core data structures and algorithms to write systems that are functional, structured, and scalable.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ========== END ABOUT ========== -->
+
+
+        <!-- ========== PROJECTS ========== -->
+        <section id="projects" class="bg-white py-28 px-6">
+
+            <div class="max-w-6xl mx-auto">
+
+                <!-- Heading -->
+                <div class="text-center mb-24">
+                    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-gray-900">
+                        Projects
+                    </h1>
+                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                        Backend-focused projects demonstrating structured architecture,
+                        clean routing, and real-world deployment experience.
+                    </p>
+                </div>
+
+                <div class="space-y-28">
+
+                    {% for project in projects %}
+                    <div class="grid md:grid-cols-2 gap-20 items-center reveal">
+
+                        <!-- LEFT SIDE : CARD -->
+                        <div class="project-card bg-white border border-gray-100 rounded-3xl p-12 shadow-sm">
+
+                            <!-- Project Name -->
+                            <h2 class="text-3xl md:text-4xl font-extrabold mb-3 text-gray-900 leading-tight">
+                                {{ project.name }}
+                            </h2>
+
+                            <!-- Description -->
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                {{ project.description }}
+                            </p>
+
+                            <!-- Tech tags from highlights -->
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                {% for item in project.highlights %}
+                                <span class="tech-tag">{{ item }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex gap-4">
+
+                                <a href="{{ project.github }}"
+                                   target="_blank"
+                                   class="btn-primary">
+                                    <i class="fa-brands fa-github text-sm"></i>
+                                    View Code
+                                </a>
+
+                                <a href="{{ project.live }}"
+                                   target="_blank"
+                                   class="btn-outline">
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                    Live Demo
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT SIDE : IMAGE -->
+                        <div class="flex justify-center reveal reveal-delay-2">
+                            <img src="{{ url_for('static', filename=project.ss) }}"
+                                 alt="{{ project.name }}"
+                                 class="rounded-3xl shadow-md border border-gray-100
+                                        max-w-full hover:scale-[1.02] transition-[transform] duration-150 ease-out">
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ========== END PROJECTS ========== -->
+
+
+        <!-- ========== CONTACT ========== -->
+        <section id="contact" class="bg-[#F9FAFB] py-28 px-6">
+
+            <div class="max-w-6xl mx-auto">
+
+                <div class="text-center mb-16 reveal">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                        Get In Touch
+                    </h1>
+                    <p class="text-gray-600">
+                        Whether you have an opportunity, a question, or just want to connect — feel free to reach out.
+                    </p>
+                </div>
+
+                <!-- Contact Layout -->
+                <div class="grid md:grid-cols-2 gap-16">
+
+                    <!-- Contact Form -->
+                    <div class="bg-white p-10 rounded-3xl shadow-sm border border-gray-100 reveal">
+
+                        <!-- Flash Messages -->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="mb-6 p-4 rounded-lg bg-[#ECFDF5] text-[#047857] border border-[#D1FAE5]">
+                                    {{ messages[0] }}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+
+                        <form method="POST" action="/contact" class="space-y-6">
+
+                            <div>
+                                <label class="block text-gray-800 font-medium mb-2">
+                                    Name
+                                </label>
+                                <input type="text" name="name" required
+                                       class="w-full p-3 border border-gray-100 rounded-lg focus:border-emerald-300
+                                              focus:outline-none focus:ring-2 focus:ring-[#065F46] transition-[border-color,box-shadow] duration-150">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-800 font-medium mb-2">
+                                    Email
+                                </label>
+                                <input type="email" name="email" required
+                                       class="w-full p-3 border border-gray-100 rounded-lg focus:border-emerald-300
+                                              focus:outline-none focus:ring-2 focus:ring-[#065F46] transition-[border-color,box-shadow] duration-150">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-800 font-medium mb-2">
+                                    Message
+                                </label>
+                                <textarea name="message" rows="5" required
+                                          class="w-full p-3 border border-gray-300 rounded-lg
+                                                 focus:outline-none focus:ring-2 focus:ring-[#065F46] transition-shadow duration-150"></textarea>
+                            </div>
+
+                            <button type="submit"
+                                    class="w-full py-3 bg-[#065F46] text-white rounded-lg
+                                           hover:bg-[#047857] hover:scale-[1.02] active:scale-95
+                                           transition-[transform,background] duration-150 ease-out shadow-sm font-semibold">
+                                Send Message
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                    <!-- Contact Icons — dark card for contrast -->
+                    <div class="contact-dark-side flex flex-col justify-center items-center space-y-10 p-12 reveal reveal-delay-2">
+
+                        <div class="text-center">
+                            <h3 class="text-2xl font-semibold mb-2">
+                                Connect With Me
+                            </h3>
+                            <p class="text-sm opacity-70">Prefer a direct line? Pick your channel.</p>
+                        </div>
+
+                        <div class="flex gap-10 text-4xl">
+
+                            <!-- Email -->
+                            <a href="mailto:sri2006karthik@gmail.com"
+                            class="text-gray-400 hover:scale-[1.15] hover:-translate-y-1 transition-[transform,color] duration-150 ease-out hover:text-red-400">
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/sri-karthik-b-060106324/"
+                            target="_blank"
+                            class="text-gray-400 hover:scale-[1.15] hover:-translate-y-1 transition-[transform,color] duration-150 ease-out hover:text-[#0A66C2]">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+
+                            <!-- Instagram -->
+                            <a href="https://instagram.com/karthik__616"
+                            target="_blank"
+                            class="text-gray-400 hover:scale-[1.15] hover:-translate-y-1 transition-[transform,color] duration-150 ease-out hover:text-pink-400">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+
+                            <!-- Phone -->
+                            <a href="tel:+916309121289"
+                            class="text-gray-400 hover:scale-[1.15] hover:-translate-y-1 transition-[transform,color] duration-150 ease-out hover:text-emerald-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ========== END CONTACT ========== -->
+
+    </div>
+
+    <!-- Shadow on Scroll -->
+    <script>
+        window.addEventListener("scroll", function() {
+            const nav = document.getElementById("navbar");
+            if (window.scrollY > 40) {
+                nav.classList.add("shadow-md");
+            } else {
+                nav.classList.remove("shadow-md");
+            }
+        });
+    </script>
+
+    <!-- Hero Load Animation -->
+    <script>
+    window.addEventListener("load", () => {
+        document.getElementById("heroTitle").classList.remove("opacity-0", "translate-y-6");
+        document.getElementById("heroDesc").classList.remove("opacity-0", "translate-y-6");
+        document.getElementById("heroButtons").classList.remove("opacity-0", "translate-y-6");
+    });
+    </script>
+
+    <!-- Scroll Reveal -->
+    <script>
+    (function () {
+        const els = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        els.forEach(el => io.observe(el));
+    })();
+    </script>
+</body>
+</html>
