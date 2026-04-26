@@ -253,22 +253,254 @@
             opacity: 0.6;
         }
 
-        /* ── PROJECT CARD — highlight strip ── */
+        /* ════════════════════════════════════════════════════════════════
+        PROJECT CARDS — PREMIUM REDESIGN
+        ════════════════════════════════════════════════════════════════ */
+
+        /* ── PROJECT CARD BASE ── */
         .project-card {
-            border-left: 3px solid transparent;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f0fdf8 100%);
+            border: 1px solid rgba(6, 95, 70, 0.10);
+            box-shadow:
+                0 2px 8px rgba(6, 95, 70, 0.06),
+                inset 0 1px 0 rgba(255,255,255,0.9),
+                inset 0 0 0 1px rgba(6,95,70,0.04);
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
         }
         .project-card:hover {
-            border-left-color: #065F46;
-            box-shadow: 0 4px 24px rgba(6,95,70,0.08);
+            border-color: rgba(6, 95, 70, 0.22);
+            box-shadow:
+                0 12px 36px rgba(6, 95, 70, 0.11),
+                0 2px 8px rgba(6, 95, 70, 0.06),
+                0 0 0 1px rgba(6,95,70,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+            transform: translateY(-5px);
         }
 
-        /* ── TECH TAG chips ── */
+        /* ── FEATURED HERO PROJECT ── */
+        .project-featured {
+            background: linear-gradient(160deg, #ffffff 0%, #f0fdf8 60%, #e8faf3 100%);
+            border: 1px solid rgba(6, 95, 70, 0.18);
+            box-shadow:
+                0 8px 32px rgba(6, 95, 70, 0.12),
+                0 2px 8px rgba(6, 95, 70, 0.07),
+                inset 0 1px 0 rgba(255,255,255,0.98),
+                inset 0 0 0 1px rgba(6,95,70,0.06);
+            border-radius: 1.75rem;
+            padding: 2.5rem;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .project-featured:hover {
+            box-shadow:
+                0 24px 56px rgba(6, 95, 70, 0.16),
+                0 4px 16px rgba(6, 95, 70, 0.09),
+                0 0 0 1px rgba(6,95,70,0.09),
+                inset 0 1px 0 rgba(255,255,255,0.98);
+            transform: translateY(-4px);
+        }
+
+        /* Featured badge */
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.85rem;
+            border-radius: 9999px;
+            background: rgba(6, 95, 70, 0.08);
+            border: 1px solid rgba(6, 95, 70, 0.2);
+            color: #065F46;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Featured image — full width, top */
+        .featured-img-wrap {
+            width: 100%;
+            border-radius: 0.875rem;
+            border: 1px solid rgba(6, 95, 70, 0.13);
+            box-shadow:
+                0 6px 28px rgba(6, 95, 70, 0.12),
+                0 1px 4px rgba(0,0,0,0.06);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s ease;
+        }
+        .featured-img-wrap:hover {
+            box-shadow:
+                0 14px 44px rgba(6, 95, 70, 0.18),
+                0 3px 10px rgba(0,0,0,0.08);
+        }
+        .featured-img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .featured-img-wrap:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Featured title row */
+        .featured-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        /* ── PROJECT TITLE ROW (non-featured) ── */
+        .project-title-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .project-card h2 {
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+        .project-link-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            margin-top: 0.35rem;
+        }
+        .project-link-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.28rem 0.7rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: background 0.15s, color 0.15s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .project-link-pill-live {
+            background: rgba(6, 95, 70, 0.08);
+            border: 1px solid rgba(6, 95, 70, 0.2);
+            color: #065F46;
+        }
+        .project-link-pill-live:hover {
+            background: #065F46;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .project-link-pill-gh {
+            background: rgba(17, 24, 39, 0.06);
+            border: 1px solid rgba(17, 24, 39, 0.15);
+            color: #111827;
+        }
+        .project-link-pill-gh:hover {
+            background: #111827;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ── PROJECT DESCRIPTION ── */
+        .project-desc {
+            max-width: 46ch;
+            line-height: 1.65;
+            color: #4B5563;
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+        .featured-desc {
+            max-width: 72ch;
+            line-height: 1.7;
+            color: #4B5563;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ── HIGHLIGHTS GRID ── */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.55rem 1rem;
+            margin-bottom: 1.75rem;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: #374151;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .highlight-icon {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            margin-top: 1px;
+            color: #065F46;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── IMAGE CONTAINER (non-featured) ── */
+        .project-img-wrap {
+            border-radius: 1rem;
+            border: 1px solid rgba(6, 95, 70, 0.12);
+            box-shadow:
+                0 4px 20px rgba(6, 95, 70, 0.10),
+                0 1px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .project-img-wrap:hover {
+            box-shadow:
+                0 10px 36px rgba(6, 95, 70, 0.16),
+                0 2px 8px rgba(0,0,0,0.07);
+            transform: translateY(-3px) scale(1.012);
+        }
+        .project-img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .project-img-wrap:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ── BUTTONS ── */
+        .btn-primary,
+        .btn-outline {
+            padding: 0.65rem 1.4rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+        .btn-primary:hover {
+            background: #047857;
+            transform: scale(1.03);
+            box-shadow: 0 2px 12px rgba(6, 95, 70, 0.2);
+        }
+        .btn-outline:hover {
+            background: #065F46;
+            color: white;
+            transform: scale(1.03);
+            box-shadow: 0 2px 12px rgba(6, 95, 70, 0.15);
+        }
+
         .tech-tag {
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
-            padding: 0.25rem 0.65rem;
+            padding: 0.35rem 0.75rem;
             border-radius: 6px;
             background: #F0FDF4;
             border: 1px solid #D1FAE5;
@@ -276,14 +508,6 @@
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.04em;
-        }
-
-        /* ── STATS — colored accent numbers ── */
-        .stat-num {
-            background: linear-gradient(135deg, #065F46, #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         /* ── CONTACT — dark card on left ── */
@@ -301,34 +525,6 @@
             color: #065F46;
             font-weight: 700;
         }
-
-        /* Project buttons — more prominent */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.65rem 1.4rem;
-            background: #065F46;
-            color: white;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.15s, transform 0.15s;
-        }
-        .btn-primary:hover { background: #047857; transform: scale(1.03); }
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.65rem 1.4rem;
-            border: 2px solid #065F46;
-            color: #065F46;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.15s, color 0.15s, transform 0.15s;
-        }
-        .btn-outline:hover { background: #065F46; color: white; transform: scale(1.03); }
     </style>
 
 </head>
@@ -779,72 +975,171 @@
             <div class="max-w-6xl mx-auto">
 
                 <!-- Heading -->
-                <div class="text-center mb-24">
-                    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-gray-900">
+                <div class="text-center mb-20">
+                    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-5 text-gray-900">
                         Projects
                     </h1>
-                    <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    <p class="text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
                         Backend-focused projects demonstrating structured architecture,
-                        clean routing, and real-world deployment experience.
+                        clean routing, and real-world deployment.
                     </p>
                 </div>
 
-                <div class="space-y-28">
+                <div class="space-y-14">
 
                     {% for project in projects %}
-                    <div class="grid md:grid-cols-2 gap-20 items-center reveal">
 
-                        <!-- LEFT SIDE : CARD -->
-                        <div class="project-card bg-white border border-gray-100 rounded-3xl p-12 shadow-sm">
+                    {% if loop.first %}
+                    <!-- ── FEATURED HERO PROJECT (first only) ── -->
+                    <div class="project-featured reveal" style="background: linear-gradient(160deg, #e8f5f0 0%, #d4ede4 40%, #c6e6d9 100%); border: 1px solid rgba(6,95,70,0.25); box-shadow: 0 8px 40px rgba(6,95,70,0.18), 0 2px 10px rgba(6,95,70,0.10), inset 0 1px 0 rgba(255,255,255,0.7);">
 
-                            <!-- Project Name -->
-                            <h2 class="text-3xl md:text-4xl font-extrabold mb-3 text-gray-900 leading-tight">
-                                {{ project.name }}
-                            </h2>
+                        <!-- Featured Badge -->
+                        <div>
+                            <span class="featured-badge">
+                                <i class="fa-solid fa-star" style="font-size:0.6rem;"></i>
+                                Featured Project
+                            </span>
+                        </div>
+
+                        <!-- Image — full width, top -->
+                        <div class="featured-img-wrap">
+                            <img src="{{ url_for('static', filename=project.ss) }}"
+                                 alt="{{ project.name }}"
+                                 style="max-height: 480px; object-fit: cover;">
+                        </div>
+
+                        <!-- Content below image -->
+                        <div>
+
+                            <!-- Title Row -->
+                            <div class="featured-title-row">
+                                <h2 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight tracking-tight" style="letter-spacing:-0.03em;">
+                                    {{ project.name }}
+                                </h2>
+                                <div class="flex gap-2 flex-shrink-0">
+                                    <a href="{{ project.live }}" target="_blank" class="project-link-pill project-link-pill-live" style="font-size:0.78rem; padding:0.38rem 0.95rem;">
+                                        <i class="fa-solid fa-circle-dot" style="font-size:0.6rem;"></i>
+                                        Live
+                                    </a>
+                                    <a href="{{ project.github }}" target="_blank" class="project-link-pill project-link-pill-gh" style="font-size:0.78rem; padding:0.38rem 0.95rem;">
+                                        <i class="fa-brands fa-github" style="font-size:0.75rem;"></i>
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
 
                             <!-- Description -->
-                            <p class="text-gray-600 mb-6 leading-relaxed">
+                            <p class="featured-desc">
                                 {{ project.description }}
                             </p>
 
-                            <!-- Tech tags from highlights -->
-                            <div class="flex flex-wrap gap-2 mb-8">
+                            <!-- Highlights — 2-col grid -->
+                            <div class="highlights-grid mb-6" style="gap: 0.65rem 1.5rem;">
                                 {% for item in project.highlights %}
-                                <span class="tech-tag">{{ item }}</span>
+                                <div class="highlight-item" style="font-size:0.88rem;">
+                                    <span class="highlight-icon">
+                                        <i class="fa-solid fa-arrow-right" style="font-size:0.65rem;"></i>
+                                    </span>
+                                    <span>{{ item }}</span>
+                                </div>
                                 {% endfor %}
                             </div>
 
                             <!-- Buttons -->
-                            <div class="flex gap-4">
-
+                            <div class="flex gap-3">
                                 <a href="{{ project.github }}"
                                    target="_blank"
                                    class="btn-primary">
                                     <i class="fa-brands fa-github text-sm"></i>
                                     View Code
                                 </a>
-
                                 <a href="{{ project.live }}"
                                    target="_blank"
                                    class="btn-outline">
                                     <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                                     Live Demo
                                 </a>
-
                             </div>
 
                         </div>
 
-                        <!-- RIGHT SIDE : IMAGE -->
-                        <div class="flex justify-center reveal reveal-delay-2">
+                    </div>
+                    <!-- ── END FEATURED ── -->
+
+                    <!-- ── REGULAR CARDS WRAPPER — centered single column ── -->
+                    <div class="flex flex-col items-center gap-10">
+
+                    {% else %}
+                    <!-- ── REGULAR PROJECT CARD — stacked vertical ── -->
+                    <div class="project-card rounded-3xl p-8 w-full max-w-lg reveal overflow-hidden">
+
+                        <!-- Image — full width, top -->
+                        <div class="project-img-wrap w-full mb-5" style="border-radius:0.75rem; overflow:hidden; border:1px solid rgba(6,95,70,0.12); box-shadow:0 4px 18px rgba(6,95,70,0.10);">
                             <img src="{{ url_for('static', filename=project.ss) }}"
                                  alt="{{ project.name }}"
-                                 class="rounded-3xl shadow-md border border-gray-100
-                                        max-w-full hover:scale-[1.02] transition-[transform] duration-150 ease-out">
+                                 style="width:100%; display:block; object-fit:cover; transition:transform 0.5s cubic-bezier(0.25,1,0.5,1);"
+                                 onmouseover="this.style.transform='scale(1.04)'"
+                                 onmouseout="this.style.transform='scale(1)'">
+                        </div>
+
+                        <!-- Content below image -->
+
+                        <!-- Title Row -->
+                        <div class="project-title-row">
+                            <h2 class="text-2xl md:text-3xl font-black text-gray-900 leading-tight">
+                                {{ project.name }}
+                            </h2>
+                            <div class="project-link-row">
+                                <a href="{{ project.live }}" target="_blank" class="project-link-pill project-link-pill-live">
+                                    <i class="fa-solid fa-circle-dot" style="font-size:0.55rem;"></i>
+                                    Live
+                                </a>
+                                <a href="{{ project.github }}" target="_blank" class="project-link-pill project-link-pill-gh">
+                                    <i class="fa-brands fa-github" style="font-size:0.7rem;"></i>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <p class="project-desc">
+                            {{ project.description }}
+                        </p>
+
+                        <!-- Highlights -->
+                        <div class="highlights-grid mb-5">
+                            {% for item in project.highlights %}
+                            <div class="highlight-item">
+                                <span class="highlight-icon">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                                <span>{{ item }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex gap-3">
+                            <a href="{{ project.github }}"
+                               target="_blank"
+                               class="btn-primary">
+                                <i class="fa-brands fa-github text-sm"></i>
+                                View Code
+                            </a>
+                            <a href="{{ project.live }}"
+                               target="_blank"
+                               class="btn-outline">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                Live Demo
+                            </a>
                         </div>
 
                     </div>
+                    {% endif %}
+
                     {% endfor %}
+
+                    </div><!-- end regular cards wrapper -->
 
                 </div>
 
